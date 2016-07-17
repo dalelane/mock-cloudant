@@ -6,3 +6,31 @@ Installation:
 ```
 npm install --save-dev fubar/mock-cloudant
 ```
+
+# Example
+
+For convenient usage in tests, consider creating a utility class like:
+
+```javascript
+'use strict';
+
+var mockCloudant = require('mock-cloudant');
+var MockCouch = mockCloudant.MockCouch; // eslint-disable-line no-unused-vars
+
+class CloudantMock {
+
+  /** @member {MockCouch} CloudantMock#cloudantMockServer */
+
+  start () {
+    this.cloudantMockServer = mockCloudant.createServer();
+    this.cloudantMockServer.listen(1337);
+    this.cloudantMockServer.addDB('users');
+  }
+
+  stop () {
+    this.cloudantMockServer && this.cloudantMockServer.close();
+  }
+}
+
+module.exports = CloudantMock;
+```
