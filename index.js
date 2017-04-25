@@ -26,6 +26,8 @@ function MockCouch(server, options) {
      * Add the routes
      */
 
+    server.get('/', function (req, res) { res.json({}); });
+    
     // GET and HEAD _all_dbs
     all_dbs = require('./lib/all_dbs')(self);
     server.get('/_all_dbs', all_dbs);
